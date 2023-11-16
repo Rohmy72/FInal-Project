@@ -1,0 +1,76 @@
+something new 
+
+var drawBitmoji = function (x,y,h){
+
+    noStroke();
+//body
+fill(240, 215, 201);
+    rect(x+(h/100*70),y + (h/100*69),h/100*9,h/100*15,25);// neck
+fill(181, 181, 181);//sweater
+    rect(x + (h/100*58),y + (h/100*80),h/100*33,h/100*50,25);// sweater chest
+//pockets
+stroke(130, 130, 130);
+    line(x + (h/100*67),y + (h/100*121),x + (h/100*69),y + (h/100*111));
+    line(x +( h/100*83),y + (h/100*121),x + (h/100*80),y + (h/100*111));
+
+noStroke();
+//hands
+fill(254, 227, 212);
+    ellipse(x + (h/100*96),y + (h/100*115),h/100*10,h/100*12);//left hand 
+    ellipse(x + (h/100*54),y + (h/100*115),h/100*10,h/100*12);//right hand
+
+fill(254, 227, 212); // skin tone
+    ellipse(x + (h/100*98),y + (h/100*47),h/100*6,h/100*18); //right ear
+    ellipse(x + (h/100*53),y + (h/100*47),h/100*8,h/100*22); //left ear
+    ellipse(x + (h/100*75),y + (h/100*50),h/100*45,h/100*55); //face
+fill(224, 201, 188);
+    triangle(x + (h/100*74),y + (h/100*43),x + (h/100*73),y + (h/100*54),x + (h/100*77),y + (h/100*54));//nose
+
+fill(255, 255, 255);//pupil colors
+    ellipse(x + (h/100*83),y + (h/100*42),h/100*10,h/100*10); //left eye
+    ellipse(x + (h/100*66),y + (h/100*42),h/100*10,h/100*10); //right eye
+    
+ stroke(255, 255, 255);   
+    arc(x + (h/100*75),y + (h/100*60),h/100*15,h/100*16,0,180); //mouth
+
+stroke(0, 0, 0); 
+fill(84,42,14); // eyes colors
+    ellipse(x +  (h/100*84),y + (h/100*43),h/100*3,h/100*3); //left pupil
+    ellipse(x + (h/100*67),y + (h/100*43),h/100*3,h/100*3); //right pupil
+
+//hairs
+noStroke();
+fill(0, 0, 0);//color
+    ellipse(x + (h/100*74),y + (h/100*31),h/100*38,h/100*8);
+    ellipse(x + (h/100*56),y + (h/100*33),h/100*6,h/100*14);
+    ellipse(x + (h/100*93),y + (h/100*33),h/100*6,h/100*14);
+
+//Hat
+fill(69, 61, 69);//color
+    ellipse(x + (h/100*75),y + (h/100*26),h/100*50,h/100*10);
+    rect(x + (h/100*62),y + (h/100*-6),h/100*26,h/100*30,4);
+
+//arms
+fill(160, 160, 160);
+    rect(x + (h/100*89),y + (h/100*85),h/100*12,h/100*28,25);// left arm
+    rect(x + (h/100*48),y + (h/100*85),h/100*12,h/100*28,25);// right arm
+
+//texts initials
+fill(18, 140, 128); 
+    text("A.O",x + h/100*59, y + h/100*94, h/100*200, h/100*200);
+ };  
+
+
+draw = function() {
+    background(59, 57, 31);
+    fill(14, 99, 15);
+rect(0,300,400,100);
+     drawBitmoji(mouseX-25,250,55);
+    fill(74, 74, 74);
+//Gun
+ellipse(mouseX,321,10,10);
+ellipse(mouseX,300,10,10);
+rect(mouseX-5,300,10,20);
+};
+
+soemthing new
