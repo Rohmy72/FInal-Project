@@ -1,0 +1,32 @@
+//creating a zombie
+
+var zombie = function(){
+    
+noStroke();
+//face
+fill(53, 153, 40);
+ellipse(200,175,30,30);
+fill(0, 0, 0);
+ellipse(195,172,10,10);
+fill(189, 189, 189);
+ellipse(193,172,5,5);
+
+
+//right arm
+fill(100, 0 ,255);
+rect(184,188,19,7);
+fill(53, 153, 40);
+ellipse(181,191,10,10);
+
+//body
+fill(21, 0, 255);
+ellipse(200,200,20,30);
+
+//left arm
+rect(184,191,19,7);
+fill(53, 153, 40);
+ellipse(181,195,10,10);
+    
+};
+
+zombie();
