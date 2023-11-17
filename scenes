@@ -33,28 +33,73 @@ Button.prototype.handleMouseClick = function() {
 };
 
 var btn1 = new Button({
-    x: 130,
-    y: 217,
-    label: "Play",
+    x: 35,
+    y: 255,
+    label: "Press Start",
     onClick: function() {
         currentScene = 1;
+
     }
 });
-
 
 var btn2 = new Button({
-    x: 130,
-    y: 285,
-    label: "Help",
+    x: 220,
+    y: 255,
+    label: "how to play",
     onClick: function() {
         currentScene = 2;
+
     }
 });
 
-var splashScreen = function(){
-    currentScene = 0;
-    background(49, 71, 84);
-    btn1.draw();
+var drawScene1 = function(){
+currentScene = 1;
+
+background(47, 11, 224);
+fill(255, 255, 255);
+btn1.draw();
+btn2.draw();
+
+
+};
+
+var drawScene2 = function(){
+    background(0, 0, 0);
+};
+
+var drawScene3 = function(){
+  background(255, 0, 255);
+};
+
+
+
+var drawScene4 = function(){
+    background(255, 0, 0);
+};
+
+mouseClicked = function(){
+    if (currentScene === 1) {
+        if (mouseX >= 35 && mouseX <= 185 &&
+        mouseY >= 225 && mouseY <= 305) {
+
+    drawScene2(); 
+}
+    }
+        if (currentScene === 1) {
+        if (mouseX >= 220 && mouseX <= 370 &&
+        mouseY >= 225 && mouseY <= 305) {
+
+    drawScene3(); 
+}
+    }
+    
+};
+
+drawScene1();
+
+
+
+
     btn2.draw();
     
 
