@@ -1,0 +1,24 @@
+draw = function() {
+    if (currentScene === 1){
+        splashScreen();
+    }
+    else if (currentScene === 2){
+        gameScreen();
+
+    // draw the  health bar
+    fill(0, 0, 0);
+    textSize(12);
+    noStroke();
+    // align text so (2, 2) is the top left corner
+    textAlign(LEFT, TOP);
+    text("Health:", 2, 2);
+    fill(255, 0, 0);
+    rect(50, 3, player.life / player.maxLife * 150, 10);
+    }
+    else if (currentScene === 3){
+        helpScreen();
+    }
+    else if (currentScene === 4){
+        endScreen();
+    }
+};
