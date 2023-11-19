@@ -1,106 +1,44 @@
-
-var currentScene;
-
-var Button = function(config) {
-    this.x = config.x || 0;
-    this.y = config.y || 0;
-    this.width = config.width || 150;
-    this.height = config.height || 50;
-    this.label = config.label || "Click";
-    this.onClick = config.onClick || function() {};
-};
-
-Button.prototype.draw = function() {
-    fill(0, 234, 255);
-    rect(this.x, this.y, this.width, this.height, 5);
-    fill(0, 0, 0);
-    textSize(19);
-    textAlign(LEFT, TOP);
-    text(this.label, this.x+10, this.y+this.height/4);
-};
-
-Button.prototype.isMouseInside = function() {
-    return mouseX > this.x &&
-           mouseX < (this.x + this.width) &&
-           mouseY > this.y &&
-           mouseY < (this.y + this.height);
-};
-
-Button.prototype.handleMouseClick = function() {
-    if (this.isMouseInside()) {
-        this.onClick();
-    }
-};
-
-var btn1 = new Button({
-    x: 35,
-    y: 255,
-    label: "Press Start",
-    onClick: function() {
-        currentScene = 1;
-
-    }
-});
-
-var btn2 = new Button({
-    x: 220,
-    y: 255,
-    label: "how to play",
-    onClick: function() {
-        currentScene = 2;
-
-    }
-});
-
-var drawScene1 = function(){
-currentScene = 1;
-
-background(47, 11, 224);
-fill(255, 255, 255);
-btn1.draw();
-btn2.draw();
-
-
-};
-
-var drawScene2 = function(){
-    background(0, 0, 0);
-};
-
-var drawScene3 = function(){
-  background(255, 0, 255);
-};
-
-
-
-var drawScene4 = function(){
-    background(255, 0, 0);
-};
-
-mouseClicked = function(){
-    if (currentScene === 1) {
-        if (mouseX >= 35 && mouseX <= 185 &&
-        mouseY >= 225 && mouseY <= 305) {
-
-    drawScene2(); 
-}
-    }
-        if (currentScene === 1) {
-        if (mouseX >= 220 && mouseX <= 370 &&
-        mouseY >= 225 && mouseY <= 305) {
-
-    drawScene3(); 
-}
-    }
-    
-};
-
-drawScene1();
-
-
-
-
+var splashScreen = function(){
+    background(49, 71, 84);
+    textSize(40);
+    text("Zombie Game", 75,134);
+    textSize(20);
+    text("By: Rohm and Angel",110,177);
+    btn1.draw();
     btn2.draw();
+    drawBitmoji(271,270,100);
+    DrawBitmoji(135,382,66);
+    zombie(196,75);
     
 
 };
+
+var gameScreen = function(){
+    currentScene = 2;
+    background(59, 57, 31);
+    fill(255, 255, 255);
+    text("Back To Menu",30,30);
+    fill(14, 99, 15);
+    rect(0,300,400,100);
+    drawBitmoji(mouseX-25,250,55);
+    fill(74, 74, 74);
+    //Gun
+    ellipse(mouseX,321,10,10);
+    ellipse(mouseX,300,10,10);
+    rect(mouseX-5,300,10,20);
+};
+    
+var helpScreen = function(){
+    currentScene = 3;
+    background(150, 82, 82);
+    textSize(20);
+    fill(0, 255, 140);
+    text("Shoot all the zombies as they come down the screen. Make sure you hit them each twice as they can take more than one shot. If the Zombies pass you on the screen you will lose one life. Be careful because you only have 3 lives. Have Fun!!",53,108,329,229);
+    btn3.draw();
+};
+
+var endScreen = function(){
+    currentScene = 4;
+    background(0, 255, 111);
+};
+    
