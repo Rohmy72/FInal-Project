@@ -1,32 +1,16 @@
-//creating a zombie
-
-var zombie = function(){
-    
-noStroke();
-//face
-fill(53, 153, 40);
-ellipse(200,175,30,30);
-fill(0, 0, 0);
-ellipse(195,172,10,10);
-fill(189, 189, 189);
-ellipse(193,172,5,5);
-
-
-//right arm
-fill(100, 0 ,255);
-rect(184,188,19,7);
-fill(53, 153, 40);
-ellipse(181,191,10,10);
-
-//body
-fill(21, 0, 255);
-ellipse(200,200,20,30);
-
-//left arm
-rect(184,191,19,7);
-fill(53, 153, 40);
-ellipse(181,195,10,10);
-    
+var zombie = function(zombieX, zombieY){
+    fill(66, 44, 0);
+quad(zombieX - 4, zombieY, zombieX + 4, zombieY, zombieX + 4 - 5, zombieY + 35, zombieX - 4 - 5, zombieY + 35);
+quad(zombieX - 4, zombieY, zombieX + 4, zombieY, zombieX + 4 + 5, zombieY + 35, zombieX - 4 + 5, zombieY + 35);
+fill(0, 174, 255);
+quad(zombieX - 4, zombieY - 25, zombieX + 4, zombieY - 25, zombieX + 4, zombieY, zombieX - 4, zombieY);
+rect(zombieX - 4, zombieY - 25, 25, 5);
+fill(255, 247, 161);
+rect(zombieX + 20, zombieY - 25, 10, 5);
+fill(229, 255, 135);
+ellipse(zombieX, zombieY - 35, 20,20);
+fill(255, 0, 0);
+quad(zombieX + 4, zombieY - 20, zombieX + 4, zombieY - 12, zombieX - 2, zombieY - 10, zombieX, zombieY - 18);
+quad(zombieX + 10, zombieY - 20, zombieX + 18, zombieY - 20, zombieX + 16, zombieY - 23, zombieX + 8, zombieY - 24);
+quad(zombieX, zombieY - 30, zombieX, zombieY - 40, zombieX + 6, zombieY - 38, zombieX + 3, zombieY - 28);
 };
-
-zombie();
