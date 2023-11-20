@@ -1,0 +1,18 @@
+var gun = function(gunX,gunY,height){
+    var h = height/100;
+    fill(84, 77, 77);
+    quad(gunX+h*200, gunY+h*375, gunX+h*250, gunY+h*375, gunX+h*275, gunY+h*300, gunX+h*225, gunY+h*300);
+        quad(gunX+h*209, gunY+h*255, gunX+h*190, gunY+h*300, gunX+h*390, gunY+h*300, gunX+h*392, gunY+h*255);
+        rect(gunX+h*389, gunY+h*261, h*7, h*24, h*20);
+        rect(gunX+h*382, gunY+h*249, h*4, h*24, h*20);
+        fill(163,163, 163);
+        rect(gunX+h*263, gunY+h*255, h*38, h*16, h*0, h*0, h*20, h*20);
+        fill(0, 0, 0);
+        quad(gunX+h*215, gunY+h*370, gunX+h*235, gunY+h*370, gunX+h*256, gunY+h*310, gunX+h*236, gunY+h*310);
+        noFill();
+        strokeCap(SQUARE);
+        strokeWeight(6);
+        arc(gunX+h*293, gunY+h*299, h*30, h*30, h*101, h*180);
+        strokeCap(ROUND);
+        noStroke();
+};
