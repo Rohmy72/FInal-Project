@@ -1,0 +1,25 @@
+var gameScreen = function(){
+    currentScene = 2;
+    background(59, 57, 31);
+    fill(255, 255, 255);
+    textSize(12);
+    text("Back To Menu",30,30);
+    fill(14, 99, 15);
+    rect(0,300,400,100);
+    drawBitmoji(mouseX-25,250,55);
+    //Gun
+    gun(mouseX-30,240,20);
+    // draw the  health bar
+    textSize(15);
+    noStroke();
+    // align text so (2, 2) is the top left corner
+    fill(255,255,255);
+    textAlign(LEFT, TOP);
+    text("Health:", 2, 2);
+    fill(255, 0, 0);
+    rect(51, 4, player.life / player.maxLife * 150, 15);
+    textSize(20);
+    text("Score: " + score, 278,12);
+    
+    
+};
