@@ -24,13 +24,30 @@ var gameScreen = function(){
     image(getImage("space/healthheart"),80,0,25,25);
     image(getImage("space/healthheart"),107,0,25,25);
     
-    //score 
-    textSize(20);
-    text("Score: " + score, 318,0);
+    // Create new zombies at random intervals
+  if (random() < 0.02) {
+    zombies.push(new Zombie());
+  }
+
+  // Update and display each zombie
+  for (var i = zombies.length - 1; i >= 0; i--) {
+    zombies[i].update();
+    zombies[i].display();
+
+    // Check if the zombie is clicked
+    if (zombies[i].isClicked()) {
+      score++;
+      zombies.splice(i, 1); // Remove the clicked zombie
+    }
+  }
+
+  // Display the score
+  fill(0);
+  textSize(24);
+  text('Score: ' + score, 269, 6);
     
     //target
     target();
-    
     
     
 };
