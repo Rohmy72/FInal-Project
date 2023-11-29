@@ -1,0 +1,34 @@
+var Zombie = function(config) {
+  this.x = random(width);
+  this.y = 0;
+  this.width = 35;
+  this.height = 25;
+
+  this.update = function() {
+    this.y += 2; // Adjust the speed of the falling zombies
+  };
+
+  this.display = function() {
+    //zombie code here
+    fill(66, 44, 0);
+    quad(this.x - 4, this.y, this.x + 4, this.y, this.x + 4 - 5, this.y + 35, this.x - 4 - 5, this.y + 35);
+    quad(this.x - 4, this.y, this.x + 4, this.y, this.x + 4 + 5, this.y + 35, this.x - 4 + 5, this.y + 35);
+    fill(0, 174, 255);
+    quad(this.x - 4, this.y - 25, this.x + 4, this.y - 25, this.x + 4, this.y, this.x - 4, this.y);
+    rect(this.x - 4, this.y - 25, 35, 5);
+    fill(255, 247, 161);
+    rect(this.x + this.width, this.y - 25, 10, 5);
+    fill(229, 255, 135);
+    ellipse(this.x, this.y - 35, 20, 20);
+    fill(255, 0, 0);
+    quad(this.x + 4, this.y - 20, this.x + 4, this.y - 12, this.x - 2, this.y - 10, this.x, this.y - 18);
+    quad(this.x + 10, this.y - 20, this.x + 18, this.y - 20, this.x + 16, this.y - 23, this.x + 8, this.y - 24);
+    quad(this.x, this.y - 30, this.x, this.y - 40, this.x + 6, this.y - 38, this.x + 3, this.y - 28);
+  };
+
+  this.isClicked = function() {
+    // Check if the mouse is over the zombie
+    return mouseX > this.x && mouseX < this.x + this.width &&
+           mouseY > this.y && mouseY < this.y + this.height;
+  };
+};
