@@ -35,6 +35,7 @@ var btn1 = new Button({
     label: "Play",
     onClick: function() {
         currentScene = 1;
+        livesLeft = 3;
     }
 });
 
