@@ -3,29 +3,64 @@ var splashScreen = function(){
     textSize(40);
     text("Zombie Game", 75,134);
     textSize(20);
-    text("By: Rohm and Angel",110,177);
+    text("By: Rohm and Angelo",110,177);
     btn1.draw();
     btn2.draw();
     drawBitmoji(271,270,100);
     DrawBitmoji(135,382,66);
-    zombie(196,75);
+    zombies = [];
+    this.x = 200;
+    this.y = 80;
+
+    // Create one zombie on the splash screen
+    zombies.push(new Zombie());
     
 
 };
 
 var gameScreen = function(){
     currentScene = 2;
+  
+    //static
     background(59, 57, 31);
     fill(255, 255, 255);
+    textSize(12);
     text("Back To Menu",30,30);
     fill(14, 99, 15);
     rect(0,300,400,100);
+    
+    //bitmoji
     drawBitmoji(mouseX-25,250,55);
-    fill(74, 74, 74);
+    
     //Gun
-    ellipse(mouseX,321,10,10);
-    ellipse(mouseX,300,10,10);
-    rect(mouseX-5,300,10,20);
+    gun(mouseX-30,240,20);
+    
+    // Create new zombies at random intervals
+  if (random() < 0.02) {
+    zombies.push(new Zombie());
+  }
+
+  // Update and display each zombie
+  for (var i = zombies.length - 1; i >= 0; i--) {
+    zombies[i].update();
+    zombies[i].display();
+
+    // Check if the zombie is clicked
+    if (zombies[i].isClicked()) {
+      score++;
+      zombies.splice(i, 1); // Remove the clicked zombie
+    }
+  }
+
+  // Display the score
+  fill(0);
+  textSize(24);
+  text('Score: ' + score, 269, 6);
+    
+    //target
+    target();
+    
+    text("Lives Remaining: " + livesLeft, 20,2);
 };
     
 var helpScreen = function(){
@@ -39,6 +74,11 @@ var helpScreen = function(){
 
 var endScreen = function(){
     currentScene = 4;
-    background(0, 255, 111);
+    background(64, 13, 13);
+    fill(255, 255, 255);
+    textSize(50);
+    text("GAME OVER!!!",38,180);
+    textSize(35);
+    text("Score: " + score, 133, 241);
+    btn3.draw();
 };
-    
