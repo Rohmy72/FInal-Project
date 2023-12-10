@@ -1,0 +1,807 @@
+var livesLeft = 3;
+var zombies = [];
+var currentScene = 1;
+var score = 0;
+var xPositions = [];
+var yPositions = [];
+var drawBitmoji = function (x,y,h){
+
+    noStroke();
+//body
+fill(240, 215, 201);
+    rect(x+(h/100*70),y + (h/100*69),h/100*9,h/100*15,25);// neck
+fill(181, 181, 181);//sweater
+    rect(x + (h/100*58),y + (h/100*80),h/100*33,h/100*50,25);// sweater chest
+//pockets
+stroke(130, 130, 130);
+    line(x + (h/100*67),y + (h/100*121),x + (h/100*69),y + (h/100*111));
+    line(x +( h/100*83),y + (h/100*121),x + (h/100*80),y + (h/100*111));
+
+noStroke();
+//hands
+fill(254, 227, 212);
+    ellipse(x + (h/100*96),y + (h/100*115),h/100*10,h/100*12);//left hand 
+    ellipse(x + (h/100*54),y + (h/100*115),h/100*10,h/100*12);//right hand
+
+fill(254, 227, 212); // skin tone
+    ellipse(x + (h/100*98),y + (h/100*47),h/100*6,h/100*18); //right ear
+    ellipse(x + (h/100*53),y + (h/100*47),h/100*8,h/100*22); //left ear
+    ellipse(x + (h/100*75),y + (h/100*50),h/100*45,h/100*55); //face
+fill(224, 201, 188);
+    triangle(x + (h/100*74),y + (h/100*43),x + (h/100*73),y + (h/100*54),x + (h/100*77),y + (h/100*54));//nose
+
+fill(255, 255, 255);//pupil colors
+    ellipse(x + (h/100*83),y + (h/100*42),h/100*10,h/100*10); //left eye
+    ellipse(x + (h/100*66),y + (h/100*42),h/100*10,h/100*10); //right eye
+    
+ stroke(255, 255, 255);   
+    arc(x + (h/100*75),y + (h/100*60),h/100*15,h/100*16,0,180); //mouth
+
+stroke(0, 0, 0); 
+fill(84,42,14); // eyes colors
+    ellipse(x +  (h/100*84),y + (h/100*43),h/100*3,h/100*3); //left pupil
+    ellipse(x + (h/100*67),y + (h/100*43),h/100*3,h/100*3); //right pupil
+
+//hairs
+noStroke();
+fill(0, 0, 0);//color
+    ellipse(x + (h/100*74),y + (h/100*31),h/100*38,h/100*8);
+    ellipse(x + (h/100*56),y + (h/100*33),h/100*6,h/100*14);
+    ellipse(x + (h/100*93),y + (h/100*33),h/100*6,h/100*14);
+
+//Hat
+fill(69, 61, 69);//color
+    ellipse(x + (h/100*75),y + (h/100*26),h/100*50,h/100*10);
+    rect(x + (h/100*62),y + (h/100*-6),h/100*26,h/100*30,4);
+
+//arms
+fill(160, 160, 160);
+    rect(x + (h/100*89),y + (h/100*85),h/100*12,h/100*28,25);// left arm
+    rect(x + (h/100*48),y + (h/100*85),h/100*12,h/100*28,25);// right arm
+
+//texts initials
+fill(18, 140, 128);
+textSize(h/100*15);
+    text("A.O",x + h/100*59, y + h/100*94, h/100*200, h/100*200);
+ };
+var drawBitmojiHead = function(bodyX, bodyY, height) {
+
+var p = height/100;
+
+noStroke();
+fill(222, 192, 145);
+ellipse(bodyX-p*100,bodyY-p*100,p*80,p*100); 
+fill(255, 255, 255);
+fill(64, 35, 35);
+rect(bodyX-p*135,bodyY-p*160,p*70,p*43,p*20);
+quad(bodyX-p*59,bodyY-p*133,bodyX-p*63,bodyY-p*99,bodyX-p*90,bodyY-p*130,bodyX-p*70,bodyY-p*149);
+quad(bodyX-p*136,bodyY-p*135,bodyX-p*134,bodyY-p*137,bodyX-p*113,bodyY-p*112,bodyX-p*148,bodyY-p*97);
+fill(74, 18, 18);
+ellipse(bodyX-p*90,bodyY-p*100,p*6,p*4);
+ellipse(bodyX-p*107,bodyY-p*100,p*6,p*4);
+fill(222,192,145);
+stroke(0, 0, 0);
+bezier(bodyX-p*107,bodyY-p*80,bodyX-p*116,bodyY-p*68,bodyX-p*74,bodyY-p*73,bodyX-p*94,bodyY-p*90);
+stroke(0, 0, 0);
+fill(255, 255, 255);
+arc(bodyX-p*97,bodyY-p*70,p*30,p*13,p*1,p*180);
+line(bodyX-p*112,bodyY-p*70,bodyX-p*84,bodyY-p*70);
+
+};
+var drawBitmojiBody = function(bodyX, bodyY, height) {
+
+var h = height/100;
+
+fill(46, 40, 40);
+quad(bodyX-h*68,bodyY-h*52,bodyX-h*69,bodyY+h*27,bodyX-h*134,bodyY+h*27,bodyX-h*135,bodyY-h*52);
+quad(bodyX-h*130,bodyY-h*52,bodyX-h*177,bodyY+h*27,bodyX-h*204,bodyY+h*27,bodyX-h*154,bodyY-h*53);
+quad(bodyX-h*68,bodyY-h*52,bodyX-h*27,bodyY+h*27,bodyX+h*1,bodyY+h*27,bodyX-h*43,bodyY-h*53);
+fill(255, 255, 255);
+textSize(h*25);
+text ("RR", bodyX-h*119, bodyY-h*20, h*100, h*100);
+
+};
+var DrawBitmoji = function (bodyX, bodyY, height){
+    
+    drawBitmojiHead(bodyX, bodyY, height);
+    drawBitmojiBody(bodyX, bodyY, height);
+    
+    
+};
+var target = function(){
+    fill(255, 0, 0);
+    noStroke();
+    ellipse(mouseX,mouseY,5,5);
+    noFill();
+    strokeWeight(1);
+    stroke(255, 0, 0);
+    ellipse(mouseX,mouseY,27,27);
+    line(mouseX-16,mouseY,mouseX-10,mouseY);
+    line(mouseX+10,mouseY,mouseX+16,mouseY);
+    line(mouseX,mouseY-16,mouseX,mouseY-10);
+    line(mouseX,mouseY+10,mouseX,mouseY+16);
+};
+
+var zombie2 = function(movingX, movingY, h){
+    
+noStroke();
+//face
+fill(53, 153, 40);
+ellipse(movingX + (h/100*200), movingY + (h/100*175), h/100 * 30, h/100 * 30);
+fill(0, 0, 0);
+ellipse(movingX + (h/100*195), movingY + (h/100*172), h/100 * 10, h/100 * 10);
+fill(161, 0, 0);
+ellipse(movingX + (h/100*193), movingY + (h/100*172), h/100 * 5, h/100 * 5);
+
+
+//right arm
+fill(100, 0 ,255);
+rect(movingX + (h/100*184), movingY + (h/100*188), h/100 * 19, h/100 * 7);
+fill(53, 153, 40);
+ellipse(movingX + (h/100*181), movingY + (h/100*191), h/100 * 10, h/100 * 10);
+
+//legs
+fill(87, 62, 33);
+rect(movingX + (h/100*192), movingY + (h/100*210), h/100 * 8, h/100 * 20);
+rect(movingX + (h/100*200), movingY + (h/100*210), h/100 * 8, h/100 * 20);
+
+//body
+fill(21, 0, 255);
+ellipse(movingX + (h/100*200), movingY + (h/100*200), h/100 * 20, h/100 * 30);
+
+//left arm
+rect(movingX + (h/100*184), movingY + (h/100*191), h/100 * 19, h/100 * 7);
+fill(53, 153, 40);
+ellipse(movingX + (h/100*181), movingY + (h/100*195), h/100 * 10, h/100 * 10);
+    
+//Blood
+fill(173, 28, 28);
+rect(movingX + (h/100*204), movingY + (h/100*165), h/100 * 5, h/100 * 7);
+rect(movingX + (h/100*191), movingY + (h/100*197), h/100 * 6, h/100 * 8);
+};
+
+var gun = function(gunX,gunY,height){
+    var h = height/100;
+    fill(84, 77, 77);
+    quad(gunX+h*200, gunY+h*375, gunX+h*250, gunY+h*375, gunX+h*275, gunY+h*300, gunX+h*225, gunY+h*300);
+        quad(gunX+h*209, gunY+h*255, gunX+h*190, gunY+h*300, gunX+h*390, gunY+h*300, gunX+h*392, gunY+h*255);
+        rect(gunX+h*389, gunY+h*261, h*7, h*24, h*20);
+        rect(gunX+h*382, gunY+h*249, h*4, h*24, h*20);
+        fill(163,163, 163);
+        rect(gunX+h*263, gunY+h*255, h*38, h*16, h*0, h*0, h*20, h*20);
+        fill(0, 0, 0);
+        quad(gunX+h*215, gunY+h*370, gunX+h*235, gunY+h*370, gunX+h*256, gunY+h*310, gunX+h*236, gunY+h*310);
+        noFill();
+        strokeCap(SQUARE);
+        strokeWeight(6);
+        arc(gunX+h*293, gunY+h*299, h*30, h*30, h*101, h*180);
+        strokeCap(ROUND);
+        noStroke();
+};
+
+var Button = function(config) {
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 100;
+    this.height = config.height || 50;
+    this.label = config.label || "Click";
+    this.onClick = config.onClick || function() {};
+};
+Button.prototype.draw = function() {
+    fill(0, 234, 255);
+    rect(this.x, this.y, this.width, this.height, 5);
+    fill(0, 0, 0);
+    textSize(19);
+    textAlign(LEFT, TOP);
+    text(this.label, this.x+10, this.y+this.height/4);
+};
+Button.prototype.isMouseInside = function() {
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+Button.prototype.handleMouseClick = function() {
+    if (this.isMouseInside()) {
+        this.onClick();
+    }
+};
+
+var btn1 = new Button({
+    x: 153,
+    y: 217,
+    label: "    Play",
+    onClick: function() {
+        currentScene = 2;
+        livesLeft = 3;
+        score = 0;
+    }
+});
+var btn2 = new Button({
+    x: 153,
+    y: 330,
+    label: "    Help",
+    onClick: function() {
+        currentScene = 3;
+    }
+});
+var btn3 = new Button({
+    x: 30,
+    y: 20,
+    label: "    Back",
+    onClick: function() {
+        currentScene = 1;
+    }
+});
+
+var player = {
+    x: 200,
+    y: 200,
+    speed: 5,
+    canShoot: false,
+    multiplier: 1,
+    life: 100,
+    maxLife: 100,
+    character: 0,
+    gain: 0
+};
+
+var Zombie = function(config) {
+  this.x = random(width);
+  this.y = 0;
+  this.width = 35;
+  this.height = 25;
+
+  this.update = function() {
+    this.y += 2; // Adjust the speed of the falling zombies
+    
+    //if 3 zombies pass the bottom of the screen end the game
+   
+    if (this.y > 400){
+        livesLeft--;
+    
+    this.y = 0;
+    
+    if(livesLeft === 0){
+        currentScene = 4;
+    }
+    }
+  };
+
+  this.display = function() {
+    //zombie code here
+    fill(66, 44, 0);
+    quad(this.x - 4, this.y, this.x + 4, this.y, this.x + 4 - 5, this.y + 35, this.x - 4 - 5, this.y + 35);
+    quad(this.x - 4, this.y, this.x + 4, this.y, this.x + 4 + 5, this.y + 35, this.x - 4 + 5, this.y + 35);
+    fill(0, 174, 255);
+    quad(this.x - 4, this.y - 25, this.x + 4, this.y - 25, this.x + 4, this.y, this.x - 4, this.y);
+    rect(this.x - 4, this.y - 25, 35, 5);
+    fill(255, 247, 161);
+    rect(this.x + this.width, this.y - 25, 10, 5);
+    fill(229, 255, 135);
+    ellipse(this.x, this.y - 35, 20, 20);
+    fill(255, 0, 0);
+    quad(this.x + 4, this.y - 20, this.x + 4, this.y - 12, this.x - 2, this.y - 10, this.x, this.y - 18);
+    quad(this.x + 10, this.y - 20, this.x + 18, this.y - 20, this.x + 16, this.y - 23, this.x + 8, this.y - 24);
+    quad(this.x, this.y - 30, this.x, this.y - 40, this.x + 6, this.y - 38, this.x + 3, this.y - 28);
+  };
+
+  this.isClicked = function() {
+    // Check if the mouse is over the zombie
+    return mouseX > this.x && mouseX < this.x + this.width &&
+           mouseY > this.y && mouseY < this.y + this.height;
+  };
+};
+
+var splashScreen = function(){
+    background(49, 71, 84);
+    
+    textSize(40);
+    text("Zombie Game", 75,134);
+    textSize(20);
+    text("By: Rohm and Angelo",110,177);
+    zombie2(-31,80,129);
+    btn1.draw();
+    btn2.draw();
+    drawBitmoji(271,270,100);
+    DrawBitmoji(135,382,66);
+    zombies = [];
+    this.x = 200;
+    this.y = 80;
+
+    // Create one zombie on the splash screen
+    zombies.push(new Zombie());
+    
+
+};
+
+mouseClicked = function() {
+    if (currentScene === 1){
+    btn1.handleMouseClick();
+    btn2.handleMouseClick();
+    }
+    if (currentScene === 3 || currentScene === 2 || currentScene === 4){
+    btn3.handleMouseClick();
+    }
+    for (var i = zombies.length - 1; i >= 0; i--) {
+    if (zombies[i].isClicked()) {
+      score++;
+      zombies.splice(i, 1); // Remove the clicked zombie
+    }
+  }
+    
+};
+    
+splashScreen();
+
+var gameScreen = function(){
+    currentScene = 2;
+  
+var thewoods = function(){
+background(23, 17, 17);
+
+//creating a zombie
+zombie2(-20,176,54);
+zombie2(61,4,129);
+
+noStroke();
+
+var trunk = function(){
+//trunk
+fill(38, 24, 11);
+rect(100,100,50,200);
+rect(15,100,50,200);
+
+rect(328,100,30,200);
+rect(199,98,30,200);
+rect(238,100,20,200);
+
+//bird nest
+fill(28, 28, 28);
+ellipse(124,151,19,30);
+
+};
+trunk();
+
+//leafs
+var leafs = function(x,y,h){
+fill(1, 38, 1);
+ellipse(x + 92, y + 78, 100, 100);
+ellipse(x +109, y + 62, 100, 100);
+ellipse(x +175, y + 161, 80, 80);
+ellipse(x +190, y + 120, 100, 100);
+ellipse(x +186, y + 80, 100, 100);
+ellipse(x +113, y + 139, 100, 100);
+ellipse(x +142, y + 59, 100, 100);
+ellipse(x +100, y + 128, 100, 100);
+    
+};
+leafs(-10,-50);
+leafs(-129,-30);
+leafs(162,-60);
+
+//Lines for details
+stroke(26, 20, 14);
+
+//tree 1
+
+line(61,215,61,297);
+line(57,186,57,294);
+line(17,186,17,300);
+
+//tree 2 
+line(102,139,102,300);
+line(147,176,147,300);
+line(143,232,143,300);
+
+//tree 3
+line(201,128,201,300);
+line(204,119,204,300);
+line(227,187,227,300);
+//tree 4
+line(250,231,250,300);
+line(254,265,254,300);
+
+//tree 5
+line(330,141,330,300);
+
+
+//ground
+noStroke();
+fill(7, 48, 7);
+rect(0,300,400,100);
+
+//line 414 and 415 is just the dirt 
+fill(59, 30, 2);
+rect(0,332,400,161);
+
+//grass
+// for (start; how long; change)
+for (var i = 0; i < 400; i += 120) {
+fill(7, 48, 7);
+ellipse(i,318,200,46);
+}
+
+
+    //bitmoji
+    drawBitmoji(mouseX-38,250,55);
+    
+//rocks
+var rock1 = function(x, y, h){
+stroke(31, 30, 31);
+fill(54, 54, 54);
+
+ellipse(x + (h/100*21),y + (h/100*8), h/100*25, h/100*20);
+
+ellipse(x + (h/100*13),y + (h/100*0), h/100*25, h/100*20);
+
+ellipse(x + (h/100*12),y + (h/100*10), h/100*25, h/100*20);
+
+};
+var rock2 = function(x, y, h){
+stroke(31, 30, 31);
+fill(54, 54, 54);
+
+ellipse(x + (h/100*0),y + (h/100*8), h/100*25, h/100*20);
+
+ellipse(x + (h/100*13),y + (h/100*0), h/100*25, h/100*20);
+
+ellipse(x + (h/100*12),y + (h/100*10), h/100*25, h/100*20);
+
+};
+
+//rocks in front of character
+rock1(-32,346,340);
+rock2(355,346,333);
+
+};
+
+thewoods();
+
+    //static
+
+    fill(255, 255, 255);
+    textSize(12);
+    text("Back To Menu",30,30);
+
+
+    //Gun
+    gun(mouseX-30,240,20);
+    
+    // Create new zombies at random intervals
+  if (random() < 0.02) {
+    zombies.push(new Zombie());
+  }
+
+  // Update and display each zombie
+  for (var i = zombies.length - 1; i >= 0; i--) {
+    zombies[i].update();
+    zombies[i].display();
+
+    // Check if the zombie is clicked
+    if (zombies[i].isClicked()) {
+      score++;
+      zombies.splice(i, 1); // Remove the clicked zombie
+    }
+  }
+
+  // Display the score
+  fill(255, 255, 255);
+  textSize(24);
+  text('Score: ' + score, 269, 6);
+    
+    //target
+    target();
+    
+    text("Lives Remaining: " + livesLeft, 20,2);
+};
+   
+var helpScreen = function(){
+        currentScene = 3;
+var c1 = color(0, 221, 255);
+var c2 = color(248, 255, 110);
+var c3 = color(53, 138, 17);
+var c4 = color(63, 173, 19);
+
+//blends in the first two colors for the sky and sun
+for (var i = 0; i < 400; i++)
+{ 
+    stroke(lerpColor(c1,c2, i/500));
+    line(i, 0, i, 400);
+}
+
+
+//the sun
+fill(230, 237, 98);
+ellipse(385,15,88,88);
+
+var threeDBlock = function(treeObject){
+    
+//shadow color
+fill(158, 158, 158);
+
+noStroke();
+rect(treeObject.x + (treeObject.h * 92), treeObject.y + (treeObject.h * 108), treeObject.h * 50, treeObject.h * 100);
+triangle(treeObject.x + (treeObject.h * 92), treeObject.y + (treeObject.h * 108), treeObject.x + (treeObject.h * 105), treeObject.y + (treeObject.h * 121), treeObject.x + (treeObject.h * 100), treeObject.y + (treeObject.h * 100));
+triangle(treeObject.x + (treeObject.h * 129), treeObject.y + (treeObject.h * 200), treeObject.x + (treeObject.h * 142), treeObject.y + (treeObject.h * 208), treeObject.x + (treeObject.h * 150), treeObject.y + (treeObject.h * 200));
+
+//base color
+fill(treeObject.towerColor);
+
+rect( treeObject.x + (treeObject.h * 100), treeObject.y + (treeObject.h * 100), treeObject.h * 50, treeObject.h * 100);    
+
+};
+
+/*
+
+disclamer: it starts from ther right to the left 
+
+*/
+
+// 1
+threeDBlock({
+x:250,
+y:100,
+h:100/100,
+towerColor:color(235, 232, 235)
+
+});
+// 2
+threeDBlock({
+x:219,
+y:126,
+h:87/100,
+towerColor:color(184, 184, 184)
+
+});
+// 3
+threeDBlock({
+x:154,
+y:144,
+h:58/100,
+towerColor:color(189, 189, 189)
+
+});
+// 4
+threeDBlock({
+x:127,
+y:61,
+h:119/100,
+towerColor:color(219, 219, 219)
+
+});
+// 5
+threeDBlock({
+x:118,
+y:174,
+h:85/100,
+towerColor:color(204, 204, 204)
+
+});
+// 6 
+threeDBlock({
+x:-134,
+y:-91,
+h:206/100,
+towerColor:color(204, 204, 204)
+
+});
+// 7
+threeDBlock({
+x:-22,
+y:188,
+h:57/100,
+towerColor:color(204, 204, 204)
+
+});
+// 8
+threeDBlock({
+x:-461,
+y:-347,
+h:327/100,
+towerColor:color(224, 224, 224)
+
+});
+
+//blends in the other two colors for the ground
+for ( var j = 0; j < 100; j++)
+{
+    stroke(lerpColor(c4, c3, j/50));
+    line(0,j + 300,400,j + 300);
+}
+fill(120, 120, 120);
+rect(-1,341,401,35);
+
+//bench
+var backmetal = function(x, y, h) {
+    noStroke();
+fill(43, 53, 133);
+    rect (x + (h / 100 * 120), y + (h / 100 * 73), h / 100 * 10, h / 100 * 170); 
+    rect (x + (h / 100 * 220), y + (h / 100 * 73), h / 100 * 10, h / 100 * 170); 
+    
+};
+var leftmetal = function(x, y, h){
+    noStroke();
+//shadow
+fill(33, 41, 102);
+rect( x + (h / 100 * 107),  y + (h / 100 * 95), h / 100 * 15, h / 100 * 90);
+triangle(x + (h / 100 * 115), y + (h / 100 * 190), x + (h / 100 * 122),y + (h / 100 * 185), x + (h / 100 * 113), y + (h / 100 * 184));
+
+//front
+fill(43, 53, 133);
+rect(x + (h / 100 * 100), y + (h / 100 * 100), h / 100 * 15, h / 100 * 90);
+
+   
+};
+var rightmetal = function(x, y, h){
+    noStroke();
+    
+//shadow
+fill(33, 41, 102);
+rect( x + (h / 100 * 92),  y + (h / 100 * 95), h / 100 * 15, h / 100 * 90);
+triangle(x + (h / 124 * 115), y + (h / 100 * 185), x + (h / 100 * 100), y + (h / 100 * 190), x + (h / 100 * 100), y + (h / 100 * 184));
+
+//front
+fill(43, 53, 133);
+rect(x + (h / 100 * 100), y + (h / 100 * 100), h / 100 * 15, h / 100 * 90);
+
+
+};
+var upperWood = function(x, y, h){
+noStroke();
+for (var i = 1; i <= 4; i++){
+
+fill(117, 72, 0);
+
+//Wood Shadow
+    rect(x + (h/100 * 100), y + i * (h/100 * 19), h/100 * 183, h/100 * 13);
+
+//front Wood
+fill(176, 109, 0);
+    rect(x + (h/100 * 100 ),y + i * (h/100 * 18), h/100 * 183,h/100 *13);
+
+}
+
+
+
+};
+var lowerWood = function(x, y, h){
+    
+//front Wood
+
+
+fill(0, 0, 0);
+    //shadow base
+    rect(x + (h / 100 * 80), y + (h / 100 * 172), h / 100 * 191, h /100 * 8);
+
+    //base
+fill(176, 109, 0);
+    rect(x + (h / 100 * 85), y + (h / 100 * 160), h / 100 * 183, h / 100 * 13);
+
+    //left side
+    triangle(x + (h / 100 * 80), y + (h / 100 * 173), x + (h / 100 * 95), y + (h / 100 * 173), x + (h / 100 * 85), y + (h / 100 * 160));
+    
+    //right side
+    triangle(x + (h / 100 * 250), y + (h / 100 * 173), x + (h / 100 * 271), y + (h / 100 * 173), x + (h / 100 * 268), y + (h / 100 * 160));
+
+};
+//calling out every piece into one
+var bench = function(x , y, h){
+backmetal(x + (h / 100 * 0), y + (h / 100 * -66), h + (h / 100 * 100));
+leftmetal(x + (h / 100 * -13), y + (h / 100 * 114), h + (h / 100 * 84));
+rightmetal(x + (h / 100 * 348), y + (h / 100 * 114), h + (h / 100 * 84));
+
+upperWood(x + (h / 100 * -15), y + (h / 100 * 61), h + (h / 100 * 100));
+
+lowerWood(x + (h / 100 * 17), y + (h / 100 * -72), h + (h / 100 * 100));
+lowerWood(x + (h / 100 * 1), y + (h / 100 * -50), h + (h / 100 * 108));
+lowerWood(x + (h / 100 * -20), y + (h / 100 * -32), h + (h / 100 * 119));    
+};
+
+bench(37,286,11);
+bench(165,286,11);
+bench(291,286,11);
+
+    textSize(20);
+    fill(0, 0, 0);
+    text("Shoot all the zombies as they come down the screen. Make sure you hit them each twice as they can take more than one shot. If the Zombies pass you on the screen you will lose one life. Be careful because you only have 3 lives. Have Fun!!",53,108,329,229);
+    btn3.draw();
+};
+
+var endScreen = function(){
+    currentScene = 4;
+    
+var graveyard = function(){
+
+var grass = function(x, y){
+noStroke();
+fill(28, 128, 36);
+triangle(x +228, y + 200, x + 236, y + 200, x + 214, y + 176);
+triangle(x + 222, y + 200, x + 230, y + 200, x + 240, y + 168);    
+};
+
+var Tomb = function(x, y, h){
+fill(0, 0, 0);
+noStroke();
+
+rect(x + (h/100*100), y + (h/100*100), h/100 * 100, h/100 * 100);
+ellipse(x + (h/100*150), y + (h/100*100), h/100 * 100, h/100 * 100);
+
+fill(153, 153, 153);
+rect(x + (h/100*105), y + (h/100*100), h/100 * 90, h/100 * 95);
+ellipse(x + (h/100*150), y + (h/100*100), h/100 * 90, h/100 * 90);
+
+fill(0, 0, 0);
+textSize(h/100 * 20);
+text("RIP",x + (h/100*133), y + (h/100*73), h/100 * 200, h/100 * 200);
+
+//box for text
+stroke(0, 0, 0);
+noFill();
+rect(x + (h/100*119), y + (h/100*153), h/100 * 61, h/100 * 28);
+
+//broken sides
+fill(0, 0, 0);
+triangle(x + (h/100*100), y + (h/100*107), x + (h/100*103), y + (h/100*101), x + (h/100*127), y + (h/100*106));
+triangle(x + (h/100*199), y + (h/100*115), x + (h/100*198), y + (h/100*109), x + (h/100*176), y + (h/100*118));
+triangle(x + (h/100*114), y + (h/100*177), x + (h/100*103), y + (h/100*167), x + (h/100*103), y + (h/100*180));
+};
+
+var deadTree = function(x, y, h){
+fill(61, 58, 58);
+noStroke();
+  rect(x + 100, y + 100,25,100);
+  triangle(x + 125, y + 100,x + 125, y + 110,x + 153, y + 80);
+      triangle(x + 100, y + 100,x + 125, y + 100,x + 113, y + -110);
+    
+};
+
+//now we call all the end screen.
+background(74, 204, 230);
+
+grass(0,-25);
+grass(-219,-5);
+grass(-115,-18);
+grass(132,-6);
+
+
+fill(31, 143, 41);
+rect(0,245,400,179);
+ellipse(200,222,524,100);
+
+
+deadTree(9,-7);
+Tomb(5,135,123);
+Tomb(-17,79,57);
+grass(20,181);
+grass(-99,181);
+Tomb(191,40,86);
+
+
+    fill(0, 0, 0);
+    textSize(17);
+    text("GAME OVER!!!",133,295);
+    textSize(15);
+    text("Score: " + score, 155, 331);
+};
+
+graveyard();
+btn3.draw();
+};
+    
+draw = function() {
+    if (currentScene === 1){
+        splashScreen();
+    }
+    else if (currentScene === 2){
+        gameScreen();
+    }
+    else if (currentScene === 3){
+        helpScreen();
+    }
+    else if (currentScene === 4){
+        endScreen();
+    }
+};
+
+//thats a lot of lines. For the drawings I tried to make it as short as I can. 
