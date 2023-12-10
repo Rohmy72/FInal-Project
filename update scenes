@@ -1,0 +1,475 @@
+var splashScreen = function(){
+    background(49, 71, 84);
+    
+    textSize(40);
+    text("Zombie Game", 75,134);
+    textSize(20);
+    text("By: Rohm and Angelo",110,177);
+    zombie2(-31,80,129);
+    btn1.draw();
+    btn2.draw();
+    drawBitmoji(271,270,100);
+    DrawBitmoji(135,382,66);
+    zombies = [];
+    this.x = 200;
+    this.y = 80;
+
+    // Create one zombie on the splash screen
+    zombies.push(new Zombie());
+};
+
+var gameScreen = function(){
+    currentScene = 2;
+  
+var thewoods = function(){
+background(23, 17, 17);
+
+//creating a zombie
+zombie2(-20,176,54);
+zombie2(61,4,129);
+
+noStroke();
+
+var trunk = function(){
+//trunk
+fill(38, 24, 11);
+rect(100,100,50,200);
+rect(15,100,50,200);
+
+rect(328,100,30,200);
+rect(199,98,30,200);
+rect(238,100,20,200);
+
+//bird nest
+fill(28, 28, 28);
+ellipse(124,151,19,30);
+
+};
+trunk();
+
+//leafs
+var leafs = function(x,y,h){
+fill(1, 38, 1);
+ellipse(x + 92, y + 78, 100, 100);
+ellipse(x +109, y + 62, 100, 100);
+ellipse(x +175, y + 161, 80, 80);
+ellipse(x +190, y + 120, 100, 100);
+ellipse(x +186, y + 80, 100, 100);
+ellipse(x +113, y + 139, 100, 100);
+ellipse(x +142, y + 59, 100, 100);
+ellipse(x +100, y + 128, 100, 100);
+    
+};
+leafs(-10,-50);
+leafs(-129,-30);
+leafs(162,-60);
+
+//Lines for details
+stroke(26, 20, 14);
+
+//tree 1
+
+line(61,215,61,297);
+line(57,186,57,294);
+line(17,186,17,300);
+
+//tree 2 
+line(102,139,102,300);
+line(147,176,147,300);
+line(143,232,143,300);
+
+//tree 3
+line(201,128,201,300);
+line(204,119,204,300);
+line(227,187,227,300);
+//tree 4
+line(250,231,250,300);
+line(254,265,254,300);
+
+//tree 5
+line(330,141,330,300);
+
+
+//ground
+noStroke();
+fill(7, 48, 7);
+rect(0,300,400,100);
+
+//line 414 and 415 is just the dirt 
+fill(59, 30, 2);
+rect(0,332,400,161);
+
+//grass
+// for (start; how long; change)
+for (var i = 0; i < 400; i += 120) {
+fill(7, 48, 7);
+ellipse(i,318,200,46);
+}
+
+
+    //bitmoji
+    drawBitmoji(mouseX-38,250,55);
+    
+//rocks
+var rock1 = function(x, y, h){
+stroke(31, 30, 31);
+fill(54, 54, 54);
+
+ellipse(x + (h/100*21),y + (h/100*8), h/100*25, h/100*20);
+
+ellipse(x + (h/100*13),y + (h/100*0), h/100*25, h/100*20);
+
+ellipse(x + (h/100*12),y + (h/100*10), h/100*25, h/100*20);
+
+};
+var rock2 = function(x, y, h){
+stroke(31, 30, 31);
+fill(54, 54, 54);
+
+ellipse(x + (h/100*0),y + (h/100*8), h/100*25, h/100*20);
+
+ellipse(x + (h/100*13),y + (h/100*0), h/100*25, h/100*20);
+
+ellipse(x + (h/100*12),y + (h/100*10), h/100*25, h/100*20);
+
+};
+
+//rocks in front of character
+rock1(-32,346,340);
+rock2(355,346,333);
+
+};
+
+thewoods();
+
+    //static
+
+    fill(255, 255, 255);
+    textSize(12);
+    text("Back To Menu",30,30);
+
+
+    //Gun
+    gun(mouseX-30,240,20);
+    
+    // Create new zombies at random intervals
+  if (random() < 0.02) {
+    zombies.push(new Zombie());
+  }
+
+  // Update and display each zombie
+  for (var i = zombies.length - 1; i >= 0; i--) {
+    zombies[i].update();
+    zombies[i].display();
+
+    // Check if the zombie is clicked
+    if (zombies[i].isClicked()) {
+      score++;
+      zombies.splice(i, 1); // Remove the clicked zombie
+    }
+  }
+
+  // Display the score
+  fill(255, 255, 255);
+  textSize(24);
+  text('Score: ' + score, 269, 6);
+    
+    //target
+    target();
+    
+    text("Lives Remaining: " + livesLeft, 20,2);
+};
+
+var helpScreen = function(){
+        currentScene = 3;
+var c1 = color(0, 221, 255);
+var c2 = color(248, 255, 110);
+var c3 = color(53, 138, 17);
+var c4 = color(63, 173, 19);
+
+//blends in the first two colors for the sky and sun
+for (var i = 0; i < 400; i++)
+{ 
+    stroke(lerpColor(c1,c2, i/500));
+    line(i, 0, i, 400);
+}
+
+
+//the sun
+fill(230, 237, 98);
+ellipse(385,15,88,88);
+
+var threeDBlock = function(treeObject){
+    
+//shadow color
+fill(158, 158, 158);
+
+noStroke();
+rect(treeObject.x + (treeObject.h * 92), treeObject.y + (treeObject.h * 108), treeObject.h * 50, treeObject.h * 100);
+triangle(treeObject.x + (treeObject.h * 92), treeObject.y + (treeObject.h * 108), treeObject.x + (treeObject.h * 105), treeObject.y + (treeObject.h * 121), treeObject.x + (treeObject.h * 100), treeObject.y + (treeObject.h * 100));
+triangle(treeObject.x + (treeObject.h * 129), treeObject.y + (treeObject.h * 200), treeObject.x + (treeObject.h * 142), treeObject.y + (treeObject.h * 208), treeObject.x + (treeObject.h * 150), treeObject.y + (treeObject.h * 200));
+
+//base color
+fill(treeObject.towerColor);
+
+rect( treeObject.x + (treeObject.h * 100), treeObject.y + (treeObject.h * 100), treeObject.h * 50, treeObject.h * 100);    
+
+};
+
+/*
+
+disclamer: it starts from ther right to the left 
+
+*/
+
+// 1
+threeDBlock({
+x:250,
+y:100,
+h:100/100,
+towerColor:color(235, 232, 235)
+
+});
+// 2
+threeDBlock({
+x:219,
+y:126,
+h:87/100,
+towerColor:color(184, 184, 184)
+
+});
+// 3
+threeDBlock({
+x:154,
+y:144,
+h:58/100,
+towerColor:color(189, 189, 189)
+
+});
+// 4
+threeDBlock({
+x:127,
+y:61,
+h:119/100,
+towerColor:color(219, 219, 219)
+
+});
+// 5
+threeDBlock({
+x:118,
+y:174,
+h:85/100,
+towerColor:color(204, 204, 204)
+
+});
+// 6 
+threeDBlock({
+x:-134,
+y:-91,
+h:206/100,
+towerColor:color(204, 204, 204)
+
+});
+// 7
+threeDBlock({
+x:-22,
+y:188,
+h:57/100,
+towerColor:color(204, 204, 204)
+
+});
+// 8
+threeDBlock({
+x:-461,
+y:-347,
+h:327/100,
+towerColor:color(224, 224, 224)
+
+});
+
+//blends in the other two colors for the ground
+for ( var j = 0; j < 100; j++)
+{
+    stroke(lerpColor(c4, c3, j/50));
+    line(0,j + 300,400,j + 300);
+}
+fill(120, 120, 120);
+rect(-1,341,401,35);
+
+//bench
+var backmetal = function(x, y, h) {
+    noStroke();
+fill(43, 53, 133);
+    rect (x + (h / 100 * 120), y + (h / 100 * 73), h / 100 * 10, h / 100 * 170); 
+    rect (x + (h / 100 * 220), y + (h / 100 * 73), h / 100 * 10, h / 100 * 170); 
+    
+};
+var leftmetal = function(x, y, h){
+    noStroke();
+//shadow
+fill(33, 41, 102);
+rect( x + (h / 100 * 107),  y + (h / 100 * 95), h / 100 * 15, h / 100 * 90);
+triangle(x + (h / 100 * 115), y + (h / 100 * 190), x + (h / 100 * 122),y + (h / 100 * 185), x + (h / 100 * 113), y + (h / 100 * 184));
+
+//front
+fill(43, 53, 133);
+rect(x + (h / 100 * 100), y + (h / 100 * 100), h / 100 * 15, h / 100 * 90);
+
+   
+};
+var rightmetal = function(x, y, h){
+    noStroke();
+    
+//shadow
+fill(33, 41, 102);
+rect( x + (h / 100 * 92),  y + (h / 100 * 95), h / 100 * 15, h / 100 * 90);
+triangle(x + (h / 124 * 115), y + (h / 100 * 185), x + (h / 100 * 100), y + (h / 100 * 190), x + (h / 100 * 100), y + (h / 100 * 184));
+
+//front
+fill(43, 53, 133);
+rect(x + (h / 100 * 100), y + (h / 100 * 100), h / 100 * 15, h / 100 * 90);
+
+
+};
+var upperWood = function(x, y, h){
+noStroke();
+for (var i = 1; i <= 4; i++){
+
+fill(117, 72, 0);
+
+//Wood Shadow
+    rect(x + (h/100 * 100), y + i * (h/100 * 19), h/100 * 183, h/100 * 13);
+
+//front Wood
+fill(176, 109, 0);
+    rect(x + (h/100 * 100 ),y + i * (h/100 * 18), h/100 * 183,h/100 *13);
+
+}
+
+
+
+};
+var lowerWood = function(x, y, h){
+    
+//front Wood
+
+
+fill(0, 0, 0);
+    //shadow base
+    rect(x + (h / 100 * 80), y + (h / 100 * 172), h / 100 * 191, h /100 * 8);
+
+    //base
+fill(176, 109, 0);
+    rect(x + (h / 100 * 85), y + (h / 100 * 160), h / 100 * 183, h / 100 * 13);
+
+    //left side
+    triangle(x + (h / 100 * 80), y + (h / 100 * 173), x + (h / 100 * 95), y + (h / 100 * 173), x + (h / 100 * 85), y + (h / 100 * 160));
+    
+    //right side
+    triangle(x + (h / 100 * 250), y + (h / 100 * 173), x + (h / 100 * 271), y + (h / 100 * 173), x + (h / 100 * 268), y + (h / 100 * 160));
+
+};
+//calling out every piece into one
+var bench = function(x , y, h){
+backmetal(x + (h / 100 * 0), y + (h / 100 * -66), h + (h / 100 * 100));
+leftmetal(x + (h / 100 * -13), y + (h / 100 * 114), h + (h / 100 * 84));
+rightmetal(x + (h / 100 * 348), y + (h / 100 * 114), h + (h / 100 * 84));
+
+upperWood(x + (h / 100 * -15), y + (h / 100 * 61), h + (h / 100 * 100));
+
+lowerWood(x + (h / 100 * 17), y + (h / 100 * -72), h + (h / 100 * 100));
+lowerWood(x + (h / 100 * 1), y + (h / 100 * -50), h + (h / 100 * 108));
+lowerWood(x + (h / 100 * -20), y + (h / 100 * -32), h + (h / 100 * 119));    
+};
+
+bench(37,286,11);
+bench(165,286,11);
+bench(291,286,11);
+
+    textSize(20);
+    fill(0, 0, 0);
+    text("Shoot all the zombies as they come down the screen. Make sure you hit them each twice as they can take more than one shot. If the Zombies pass you on the screen you will lose one life. Be careful because you only have 3 lives. Have Fun!!",53,108,329,229);
+    btn3.draw();
+};
+
+var endScreen = function(){
+    currentScene = 4;
+    
+var graveyard = function(){
+
+var grass = function(x, y){
+noStroke();
+fill(28, 128, 36);
+triangle(x +228, y + 200, x + 236, y + 200, x + 214, y + 176);
+triangle(x + 222, y + 200, x + 230, y + 200, x + 240, y + 168);    
+};
+
+var Tomb = function(x, y, h){
+fill(0, 0, 0);
+noStroke();
+
+rect(x + (h/100*100), y + (h/100*100), h/100 * 100, h/100 * 100);
+ellipse(x + (h/100*150), y + (h/100*100), h/100 * 100, h/100 * 100);
+
+fill(153, 153, 153);
+rect(x + (h/100*105), y + (h/100*100), h/100 * 90, h/100 * 95);
+ellipse(x + (h/100*150), y + (h/100*100), h/100 * 90, h/100 * 90);
+
+fill(0, 0, 0);
+textSize(h/100 * 20);
+text("RIP",x + (h/100*133), y + (h/100*73), h/100 * 200, h/100 * 200);
+
+//box for text
+stroke(0, 0, 0);
+noFill();
+rect(x + (h/100*119), y + (h/100*153), h/100 * 61, h/100 * 28);
+
+//broken sides
+fill(0, 0, 0);
+triangle(x + (h/100*100), y + (h/100*107), x + (h/100*103), y + (h/100*101), x + (h/100*127), y + (h/100*106));
+triangle(x + (h/100*199), y + (h/100*115), x + (h/100*198), y + (h/100*109), x + (h/100*176), y + (h/100*118));
+triangle(x + (h/100*114), y + (h/100*177), x + (h/100*103), y + (h/100*167), x + (h/100*103), y + (h/100*180));
+};
+
+var deadTree = function(x, y, h){
+fill(61, 58, 58);
+noStroke();
+  rect(x + 100, y + 100,25,100);
+  triangle(x + 125, y + 100,x + 125, y + 110,x + 153, y + 80);
+      triangle(x + 100, y + 100,x + 125, y + 100,x + 113, y + -110);
+    
+};
+
+//now we call all the end screen.
+background(74, 204, 230);
+
+grass(0,-25);
+grass(-219,-5);
+grass(-115,-18);
+grass(132,-6);
+
+
+fill(31, 143, 41);
+rect(0,245,400,179);
+ellipse(200,222,524,100);
+
+
+deadTree(9,-7);
+Tomb(5,135,123);
+Tomb(-17,79,57);
+grass(20,181);
+grass(-99,181);
+Tomb(191,40,86);
+
+
+    fill(0, 0, 0);
+    textSize(17);
+    text("GAME OVER!!!",133,295);
+    textSize(15);
+    text("Score: " + score, 155, 331);
+};
+
+graveyard();
+btn3.draw();
+};
+
