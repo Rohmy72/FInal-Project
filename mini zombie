@@ -1,0 +1,37 @@
+var zombie2 = function(movingX, movingY, h){
+    
+noStroke();
+//face
+fill(53, 153, 40);
+ellipse(movingX + (h/100*200), movingY + (h/100*175), h/100 * 30, h/100 * 30);
+fill(0, 0, 0);
+ellipse(movingX + (h/100*195), movingY + (h/100*172), h/100 * 10, h/100 * 10);
+fill(161, 0, 0);
+ellipse(movingX + (h/100*193), movingY + (h/100*172), h/100 * 5, h/100 * 5);
+
+
+//right arm
+fill(100, 0 ,255);
+rect(movingX + (h/100*184), movingY + (h/100*188), h/100 * 19, h/100 * 7);
+fill(53, 153, 40);
+ellipse(movingX + (h/100*181), movingY + (h/100*191), h/100 * 10, h/100 * 10);
+
+//legs
+fill(87, 62, 33);
+rect(movingX + (h/100*192), movingY + (h/100*210), h/100 * 8, h/100 * 20);
+rect(movingX + (h/100*200), movingY + (h/100*210), h/100 * 8, h/100 * 20);
+
+//body
+fill(21, 0, 255);
+ellipse(movingX + (h/100*200), movingY + (h/100*200), h/100 * 20, h/100 * 30);
+
+//left arm
+rect(movingX + (h/100*184), movingY + (h/100*191), h/100 * 19, h/100 * 7);
+fill(53, 153, 40);
+ellipse(movingX + (h/100*181), movingY + (h/100*195), h/100 * 10, h/100 * 10);
+    
+//Blood
+fill(173, 28, 28);
+rect(movingX + (h/100*204), movingY + (h/100*165), h/100 * 5, h/100 * 7);
+rect(movingX + (h/100*191), movingY + (h/100*197), h/100 * 6, h/100 * 8);
+};
