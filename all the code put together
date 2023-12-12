@@ -294,7 +294,84 @@ var Zombie = function(config) {
 };
 
 var splashScreen = function(){
-    background(49, 71, 84);
+    background(221, 134, 75);
+
+var topSky = function(){
+
+var r = 65;
+var g = 50;
+var b = 135;
+
+for(var y = 0; y < 120; y++){
+    stroke(r, g, b);
+    
+    line(0, y, 400, y);
+    
+    r += 0.8;
+    g += 0.2;
+    b -= 0.2;
+}
+
+};
+topSky();
+
+var bottomSky = function(){
+    
+var r = 161;
+var g = 74;
+var b = 111;
+
+//bottom sky
+for(var y = 120; y < 240; y++){
+    stroke(r, g, b);
+    
+    line(0, y, 400, y);
+    
+    r += 0.5;
+    g += 0.5;
+    b -= 0.3;
+}
+};
+bottomSky();
+
+//sun
+fill(252,231,212);
+stroke(215, 160, 120);
+ellipse(200, 210, 30, 30);
+
+//trees going left to right
+var tree = function(x, y, w, h) {
+
+stroke(30,25,75);
+strokeWeight(2.2);
+
+for(var i = y; i < 400; i+=0.4){
+
+    line(x-random(w), i+random(-5, 15), x+random(w), i+random(-5, 15));
+    w += h;
+    
+}
+
+};
+tree(30, 150, 0, 0.2);
+tree(85, 180, 0, 0.2);
+tree(150, 240, 0, 0.2);
+tree(270, 260, 0, 0.25);
+tree(320, 200, 0, 0.25);
+tree(375, 150, 0, 0.15);
+
+//birds
+noFill();
+stroke(55, 50, 85);
+//noStroke();
+
+strokeWeight(3);
+bezier(95, 100, 105, 90, 110, 90, 115, 100);
+bezier(115, 100, 120, 90, 125, 95, 130, 100);
+
+strokeWeight(2);
+bezier(126, 170, 131, 167, 133, 160, 140, 170);
+bezier(140, 170, 145, 160, 154, 168, 156, 170);
     
     textSize(40);
     text("Zombie Game", 75,134);
